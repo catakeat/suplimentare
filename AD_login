@@ -1,0 +1,64 @@
+<?php
+
+function authenticateUser($email, $password) {
+    $ldapServer = 'ldap://your-ldap-server-url'; // Replace with the URL of your LDAP server
+    $ldapBaseDn = 'dc=your,dc=domain'; // Replace with the base DN of your Active Directory domain
+
+    $ldapConnection = ldap_connect($ldapServer);
+    ldap_set_option($ldapConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
+    ldap_set_option($ldapConnection, LDAP_OPT_REFERRALS, 0);
+
+    if (!$ldapConnection) {
+        return false;
+    }
+
+    $ldapBind = ldap_bind($ldapConnection, $email, $password);
+
+    if ($ldapBind) {
+        $searchFilter = "(mail=$email)";
+        $searchAttributes = array("cn", "mail");
+
+        $ldapSearch = ldap_search($ldapConnection, $ldapBaseDn, $searchFilter, $searchAttributes);
+        $ldapEntries = ldap_get_entries($ldapConnection, $ldapSearch);
+
+        if ($ldapEntries['count'] > 0) {
+            $username = $ldapEntries[0]['cn'][0];
+            $email = $ldapEntries[0]['mail'][0];
+
+            // Authentication successful, you can perform additional actions here if needed
+
+            // Return the user details
+            return array(
+                'username' => $username,
+                'email' => $email
+            );
+        }
+    }
+
+    return false;
+}
+
+// Example usage
+$email = 'user@example.com';
+$password = 'password';
+
+$userDetails = authenticateUser($email, $password);
+
+if ($userDetails) {
+    echo "Authentication successful for user: " . $userDetails['username'];
+    // Proceed with further actions for the authenticated user
+} else {
+    echo "Authentication failed.";
+}
+?>
+Make sure to replace 'ldap://your-ldap-server-url' with the URL of your LDAP server 
+and 'dc=your,dc=domain' with the base DN of your Active Directory domain. Also, adjust 
+the example usage code according to your application's needs.
+
+Please note that this code assumes you have the necessary LDAP PHP 
+extensions installed and configured. Additionally, it's essential to ensure 
+that the LDAP server is reachable from your PHP environment and that the provided 
+credentials have appropriate access rights to perform the LDAP operations required for authentication.
+
+Remember to handle errors appropriately and implement additional security measures,
+ such as using secure LDAP connections (LDAPS) and properly validating user inputs.

@@ -1,0 +1,88 @@
+table {
+    caption-side: bottom;
+     border-collapse:inherit; 
+}
+
+#calendar_nou{
+    width: 70%;
+}
+#calendar_nou td.header{
+    /* background-color: #f5f5f5;
+     border: 2px solid #ececec;*/
+    background-color: #ececec;
+    border: 3px solid #f9f9f9
+}
+#calendar_nou td.header a{
+    text-decoration: none;
+}
+#calendar_nou .start{
+    background-color: #fff;
+}
+.prev{
+    float:left;
+}
+.next {
+    float:right;
+}
+.title{
+    margin: auto;
+    text-align: center;
+}
+
+#calendar_nou td{
+    background-color: #51ce57;
+    /* min-width:2rem;*/
+    padding: 25px;
+}
+#calendar_nou td.working-day a
+{
+    text-decoration: none;
+}
+#calendar_nou  td.working-day {
+    /*  text-align: center ;*/
+    background-color: #ececec;
+    cursor:pointer;
+    color: #2E3192;
+    padding: 25px;
+}
+#calendar_nou td.working-day:hover{
+    background-color: rgba(46, 49, 146,0.5);
+    cursor: pointer;
+    color: #fff;
+    border-radius :6px;
+}
+#calendar_nou  td.not-working-day {
+    background-color:#F0F0F0;
+    color: #adf;
+}
+#calendar_nou td.not-working-day:hover{
+    background-color: rgba(255, 99, 71, 0.5);
+    cursor:no-drop;
+    color: #fff;
+}
+
+/*  de rezerva */
+#calendar_nou td.ocupata {
+    background-color: red;
+    color:white;
+}
+.big_title{
+    color:#2E3192;
+    font-size: 1.5rem;
+}
+.zilele_saptaminii td{
+    color: #2E6392;
+    /*  border-right :3px solid #2E6392;*/
+    max-height: 3rem;
+}
+.navigatie_calendar{
+    font-weight:bold;
+
+}
+.cellcontent-list{
+    all:unset;
+    list-style: none;
+    font-size: 0.7rem;
+    color:red;
+}
+
